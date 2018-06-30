@@ -37,7 +37,11 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'main'
+    'main',
+    'user',
+    'board',
+    'guestbook'
+
 ]
 
 MIDDLEWARE = [
@@ -126,3 +130,6 @@ STATICFILES_DIRS = (
     os.path.join(BASE_DIR, 'statics'),
 )
 STATIC_URL = '/assets/'
+
+#세션 정보를 쿠키로 사용할지, DB로 저장할지 여러 방법이 있다.
+SESSION_EXPIRE_AT_BROWSER_CLOSE = True #DB로 저장하겟다.
