@@ -34,5 +34,11 @@ urlpatterns = [
     path('user/modifyform', board_views.modifyform),
 
     path('guestbook/', guestbook_views.list),
-    path('guestbook/add', guestbook_views.add)
+    path('guestbook/add', guestbook_views.add),
+    path('guestbook/deleteform', guestbook_views.deleteform),
+    path('guestbook/delete', guestbook_views.delete),
+
+    path('board/', board_views.list),
+    path('board/view', board_views.view),
+    path('board/write', board_views.write)
 ]
