@@ -2,7 +2,7 @@ from django.http import HttpResponseRedirect
 from django.shortcuts import render
 
 # Create your views here.
-import board
+from board.models import Board
 
 
 def writeform(request):
@@ -16,12 +16,36 @@ def modifyform(request):
     return render(request, '/board/modifyform')
 
 def list(request):
-    # board_list = board.objects.all().order_by('-regdate')
-    # context = {'board_list': board_list}
-    return render(request, 'board/list.html')
+    board_list = Board.objects.all().order_by('-regdate')
+    context = {'board_list': board_list}
+    return render(request, 'board/list.html', context)
 
 def view(request):
     return render(request, 'board/view.html')
 
+def viewform(request):
+    pass
+    # boardmodify = Board()
+    # return HttpResponseRedirect(request, '/board')
+
 def write(request):
     return render(request, 'board/write.html')
+
+def writeform(request):
+    board = Board()
+    board.title = request.POST['title']
+    board.name = request.POST['name']
+    board.hit = request.POST['hit']
+    board.regdate = request.POST['regdate']
+    board.user = request.POST['user']
+
+    board.save()
+
+    return HttpResponseRedirect('/board')
+
+
+def modify(request):
+    return render(request, 'board/modify.html')
+
+
+
