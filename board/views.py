@@ -35,9 +35,7 @@ def writeform(request):
     board = Board()
     board.title = request.POST['title']
     board.name = request.POST['name']
-    board.hit = request.POST['hit']
-    board.regdate = request.POST['regdate']
-    board.user = request.POST['user']
+    board.content = request.POST['content']
 
     board.save()
 
