@@ -22,6 +22,7 @@ def add(request):
     return HttpResponseRedirect('/guestbook')
 
 
+
 def deleteform(request):
     data = request.GET.get('id', None)
     return render(request, 'guestbook/deleteform.html', {'id' : data})
