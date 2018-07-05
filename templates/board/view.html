@@ -20,16 +20,14 @@
 						<td class="label">내용</td>
 						<td>
 							<div class="view-content">
-								내용 1입니다.<br>
-								내용 2입니다.<br>
-								내용 3입니다.
+								{{ board.content }}
 							</div>
 						</td>
 					</tr>
 				</table>
 				<div class="bottom">
 					<a href="/board">글목록</a>
-					<a href="/board/view/viewmodify">글수정</a>
+					<a href="/board/modify?id={{ board.id }}">글수정</a>
 				</div>
 			</div>
 	{% endblock %}

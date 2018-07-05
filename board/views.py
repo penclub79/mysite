@@ -12,10 +12,6 @@ def writeform(request):
         return HttpResponseRedirect('/user/loginform')
 
 
-def modifyform(request):
-    return render(request, '/board/modifyform')
-
-
 def list(request):
     board_list = Board.objects.all().order_by('-regdate')
     context = {'board_list': board_list}
@@ -23,13 +19,12 @@ def list(request):
 
 
 def view(request):
-    return render(request, 'board/view.html')
+    id = request.GET.get('id', False) #<primary key>면 get
+                                #filter는 <특정조건에 맞는 Row>
+    board = Board.objects.get(id=id)
+    result = {'board': board}
 
-
-def viewform(request):
-    pass
-    # boardmodify = Board()
-    # return HttpResponseRedirect(request, '/board')
+    return render(request, 'board/view.html', result)
 
 
 def write(request):
@@ -53,4 +48,28 @@ def writeform(request):
 
 
 def modify(request):
-    return render(request, 'board/modify.html')
+    id = request.GET.get('id', False)
+    board = Board.objects.get(id=id)
+    result = {'board': board}
+    return render(request, 'board/modify.html', result)
+
+def modifyform(request):
+    board = request.objects.get(id='id')
+    print('board=======================', board)
+
+    board.title = request.GET.get('title')
+    board.content = request.GET.get('content')
+
+    board.save()
+
+    return HttpResponseRedirect('/board/modify')
+
+
+
+
+
+
+
+
+
+

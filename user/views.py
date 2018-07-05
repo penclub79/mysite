@@ -16,7 +16,7 @@ def join(request):
     user.password = request.POST['password']
     user.gender = request.POST['gender']
 
-    user.save()
+    user.save() #DB에 저장
     return HttpResponseRedirect('/user/joinsuccess')
 
 def joinsuccess(request):
