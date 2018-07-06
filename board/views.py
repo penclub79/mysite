@@ -43,22 +43,20 @@ def add(request):
 
 def writeform(request):
     data = request.session['authuser']['id']
-    print('data ====== ', data)
     return render(request, 'board/write.html', {'id': data})
 
 
 def modify(request):
-    id = request.GET.get('id', False)
+    id = request.GET.get('id', None)
     board = Board.objects.get(id=id)
     result = {'board': board}
     return render(request, 'board/modify.html', result)
 
 def modifyform(request):
-    board = request.objects.get(id='id')
-    print('board=======================', board)
+    id = request.GET.get('id', False)
+    board = Board.objects.get(id=id)
 
-    board.title = request.GET.get('title')
-    board.content = request.GET.get('content')
+    Board.objects.filter(title=request.POST['title']).filter(content=request.POST['content'])
 
     board.save()
 
