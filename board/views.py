@@ -19,8 +19,8 @@ def list(request):
 
 
 def view(request):
-    id = request.GET.get('id', False) #<primary key>면 get
-                                #filter는 <특정조건에 맞는 Row>
+    id = request.GET.get('id', False)  # <primary key>면 get
+    # filter는 <특정조건에 맞는 Row>
     board = Board.objects.get(id=id)
     result = {'board': board}
 
@@ -41,6 +41,7 @@ def add(request):
 
     return HttpResponseRedirect('/board')
 
+
 def writeform(request):
     data = request.session['authuser']['id']
     return render(request, 'board/write.html', {'id': data})
@@ -52,22 +53,23 @@ def modify(request):
     result = {'board': board}
     return render(request, 'board/modify.html', result)
 
+
 def modifyform(request):
-    id = request.GET.get('id', False)
+    id = request.POST.get('id', None)
     board = Board.objects.get(id=id)
 
-    Board.objects.filter(title=request.POST['title']).filter(content=request.POST['content'])
+    board.title = request.POST['title']
+    board.content = request.POST['content']
 
     board.save()
-
-    return HttpResponseRedirect('/board/modify')
-
+    return HttpResponseRedirect('/board/')
 
 
+def delete(request):
+    id = request.POST.get('id', None)
+    board = Board.objects.get(id=id)
 
+    board.id = request.POST.get('id', request.GET.get('id'))
+    board.objects.filter(id=board.id).get().delete()
 
-
-
-
-
-
+    return HttpResponseRedirect('/board/')
